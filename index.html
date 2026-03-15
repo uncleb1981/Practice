@@ -4,20 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thredl — NWA Closet Swap</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0f0f13;
-      --surface: #1a1a24;
-      --card: #22222f;
-      --accent: #a78bfa;
-      --accent2: #818cf8;
-      --yes: #34d399;
-      --no: #f87171;
-      --text: #f1f0ff;
-      --muted: #6b7280;
-      --border: rgba(255,255,255,0.07);
-      --radius: 20px;
+      --bg:      #faf7f4;
+      --surface: #ffffff;
+      --card:    #ffffff;
+      --accent:  #9b6b7b;
+      --gold:    #c4a882;
+      --yes:     #6b9e7f;
+      --no:      #b85c4a;
+      --text:    #2d2420;
+      --muted:   #9e8c86;
+      --light:   #f0ebe6;
+      --border:  rgba(45,36,32,0.1);
+      --radius:  18px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,102 +31,102 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-bottom: 40px;
+      padding-bottom: 48px;
     }
 
-    /* Header */
+    /* ── Header ── */
     header {
       width: 100%;
-      padding: 18px 24px;
+      padding: 16px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
-      z-index: 10;
-      background: rgba(15,15,19,0.85);
+      z-index: 20;
     }
 
     .logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.5px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.5px;
     }
 
-    .logo-sub {
-      font-size: 0.65rem;
-      font-weight: 500;
+    .logo-tagline {
+      font-size: 0.62rem;
       color: var(--muted);
-      letter-spacing: 2px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      margin-top: -2px;
-      -webkit-text-fill-color: var(--muted);
+      margin-top: 1px;
     }
 
-    .header-right {
-      width: 36px; height: 36px;
-      background: var(--surface);
+    .profile-dot {
+      width: 34px; height: 34px;
       border-radius: 50%;
-      border: 1px solid var(--border);
+      background: var(--light);
+      border: 1.5px solid var(--border);
       display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      cursor: pointer;
+      letter-spacing: 0.5px;
     }
 
-    /* Main container */
+    /* ── Container ── */
     .container {
       width: 100%;
       max-width: 400px;
-      padding: 20px 16px;
+      padding: 22px 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 18px;
+      gap: 20px;
     }
 
-    /* Upload panel */
+    /* ── Listing panel ── */
     .panel {
       width: 100%;
       background: var(--surface);
       border-radius: var(--radius);
-      padding: 18px;
+      padding: 20px;
       border: 1px solid var(--border);
+      box-shadow: 0 2px 16px rgba(45,36,32,0.06);
     }
 
     .panel-label {
-      font-size: 0.7rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
       font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
+      color: var(--text);
       margin-bottom: 14px;
     }
 
     .upload-area {
-      border: 1.5px dashed rgba(167,139,250,0.3);
-      border-radius: 14px;
-      padding: 28px 20px;
+      border: 1.5px dashed rgba(155,107,123,0.35);
+      border-radius: 12px;
+      padding: 26px 20px;
       text-align: center;
       cursor: pointer;
       position: relative;
       transition: border-color 0.2s, background 0.2s;
-      background: rgba(167,139,250,0.03);
+      background: rgba(155,107,123,0.03);
     }
 
     .upload-area:hover {
       border-color: var(--accent);
-      background: rgba(167,139,250,0.06);
+      background: rgba(155,107,123,0.06);
     }
 
     .upload-area input[type="file"] {
       position: absolute; inset: 0; opacity: 0; cursor: pointer;
     }
 
-    .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+    .upload-icon { font-size: 1.8rem; margin-bottom: 8px; }
 
     .upload-area p {
       color: var(--muted);
@@ -133,16 +134,13 @@
       line-height: 1.5;
     }
 
-    .upload-area p span {
-      color: var(--accent);
-      font-weight: 600;
-    }
+    .upload-area p strong { color: var(--accent); font-weight: 600; }
 
     .upload-preview {
       width: 100%;
-      max-height: 180px;
+      max-height: 200px;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: 10px;
       display: none;
       margin-top: 12px;
     }
@@ -153,91 +151,81 @@
       margin-top: 12px;
     }
 
-    .fields select, .fields input {
-      flex: 1;
-      padding: 11px 12px;
-      background: var(--card);
+    .select-wrap { position: relative; flex: 1; }
+
+    .select-wrap::after {
+      content: '›';
+      position: absolute;
+      right: 12px; top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      color: var(--muted);
+      pointer-events: none;
+      font-size: 1rem;
+    }
+
+    .fields select {
+      width: 100%;
+      padding: 11px 30px 11px 12px;
+      background: var(--light);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       color: var(--text);
       font-size: 0.85rem;
       font-family: 'Inter', sans-serif;
       outline: none;
-      transition: border-color 0.2s;
       appearance: none;
       -webkit-appearance: none;
       cursor: pointer;
+      transition: border-color 0.2s;
     }
 
-    .select-wrap {
-      position: relative; flex: 1;
-    }
-
-    .select-wrap::after {
-      content: '▾';
-      position: absolute;
-      right: 12px; top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      pointer-events: none;
-      font-size: 0.8rem;
-    }
-
-    .fields select:focus, .fields input:focus {
-      border-color: var(--accent);
-    }
-
-    .fields select option { background: #1a1a24; }
+    .fields select:focus { border-color: var(--accent); }
 
     .publish-btn {
       width: 100%;
       margin-top: 14px;
       padding: 13px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: var(--accent);
       color: #fff;
       border: none;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      font-weight: 700;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
       font-family: 'Inter', sans-serif;
       cursor: pointer;
-      letter-spacing: 0.3px;
-      transition: opacity 0.2s, transform 0.1s;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.1s;
     }
 
-    .publish-btn:hover { opacity: 0.92; }
+    .publish-btn:hover { background: #885f6d; }
     .publish-btn:active { transform: scale(0.98); }
 
-    /* Card stack */
-    .stack-label {
+    /* ── Stack header ── */
+    .stack-header {
       width: 100%;
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
     }
 
-    .stack-label span {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
+    .stack-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--text);
     }
 
     .stack-count {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 4px 12px;
       font-size: 0.75rem;
-      color: var(--accent);
-      font-weight: 600;
+      color: var(--muted);
+      font-weight: 500;
     }
 
+    /* ── Card stack ── */
     .card-stack {
       width: 100%;
       position: relative;
-      height: 440px;
+      height: 450px;
     }
 
     .card {
@@ -248,148 +236,161 @@
       border-radius: var(--radius);
       overflow: hidden;
       border: 1px solid var(--border);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 32px rgba(45,36,32,0.12);
       transition: transform 0.45s cubic-bezier(.22,.68,0,1.2), opacity 0.35s ease;
-      cursor: grab;
     }
 
     .card img {
       width: 100%;
-      height: 280px;
+      height: 300px;
       object-fit: cover;
       display: block;
+      background: var(--light);
     }
 
     .card-gradient {
       position: absolute;
-      top: 160px;
-      left: 0; right: 0;
-      height: 130px;
+      top: 190px; left: 0; right: 0;
+      height: 120px;
       background: linear-gradient(to bottom, transparent, var(--card));
       pointer-events: none;
     }
 
-    .card-info {
-      padding: 16px 18px;
-    }
+    .card-info { padding: 14px 18px 16px; }
 
     .card-name {
-      font-size: 1.1rem;
-      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
       color: var(--text);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .card-meta {
       display: flex;
-      gap: 8px;
+      gap: 7px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .pill {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border);
+      background: var(--light);
       color: var(--muted);
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       font-weight: 500;
       padding: 4px 11px;
       border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+      border: 1px solid var(--border);
     }
 
-    /* Stamps */
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 10px 3px 3px;
+    }
+
+    .user-initial {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .user-pill span { font-size: 0.73rem; color: var(--muted); font-weight: 500; }
+
+    /* ── Stamps ── */
     .stamp {
       position: absolute;
-      top: 24px;
-      font-size: 1.2rem;
-      font-weight: 800;
-      border: 3px solid;
-      border-radius: 8px;
-      padding: 5px 14px;
+      top: 22px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: 2.5px solid;
+      border-radius: 6px;
+      padding: 5px 13px;
       opacity: 0;
       transition: opacity 0.15s;
       pointer-events: none;
       letter-spacing: 2px;
       text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
     }
 
-    .stamp-yes { left: 18px; color: var(--yes); border-color: var(--yes); transform: rotate(-12deg); }
-    .stamp-no  { right: 18px; color: var(--no);  border-color: var(--no);  transform: rotate(12deg); }
+    .stamp-yes { left: 16px; color: var(--yes); border-color: var(--yes); transform: rotate(-10deg); }
+    .stamp-no  { right: 16px; color: var(--no);  border-color: var(--no);  transform: rotate(10deg); }
 
-    .card.fly-left  { transform: translateX(-130%) rotate(-18deg) !important; opacity: 0; }
-    .card.fly-right { transform: translateX(130%)  rotate(18deg)  !important; opacity: 0; }
+    .card.fly-left  { transform: translateX(-130%) rotate(-16deg) !important; opacity: 0; }
+    .card.fly-right { transform: translateX(130%)  rotate(16deg)  !important; opacity: 0; }
 
-    /* Actions */
+    /* ── Action buttons ── */
     .actions {
       display: flex;
-      gap: 24px;
+      gap: 28px;
       align-items: center;
     }
 
     .btn-action {
-      width: 68px; height: 68px;
-      border-radius: 50%;
       border: none;
-      font-size: 1.6rem;
       cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: transform 0.15s, box-shadow 0.15s;
-      position: relative;
-    }
-
-    .btn-action::after {
-      content: '';
-      position: absolute;
-      inset: -2px;
       border-radius: 50%;
-      opacity: 0;
-      transition: opacity 0.2s;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.15s, box-shadow 0.2s;
+      font-weight: 700;
     }
 
-    .btn-no  {
-      background: rgba(248,113,113,0.12);
-      border: 1.5px solid rgba(248,113,113,0.3);
+    .btn-no {
+      width: 60px; height: 60px;
+      background: #fff;
+      border: 1.5px solid rgba(184,92,74,0.3);
       color: var(--no);
-      box-shadow: 0 0 0 0 rgba(248,113,113,0);
+      font-size: 1.3rem;
+      box-shadow: 0 2px 12px rgba(184,92,74,0.12);
     }
 
     .btn-yes {
-      background: rgba(52,211,153,0.12);
-      border: 1.5px solid rgba(52,211,153,0.3);
-      color: var(--yes);
-      width: 76px; height: 76px;
-      font-size: 1.8rem;
+      width: 70px; height: 70px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 20px rgba(155,107,123,0.35);
     }
 
-    .btn-no:hover  { transform: scale(1.1); box-shadow: 0 0 24px rgba(248,113,113,0.25); }
-    .btn-yes:hover { transform: scale(1.1); box-shadow: 0 0 24px rgba(52,211,153,0.25); }
+    .btn-no:hover  { transform: scale(1.08); box-shadow: 0 4px 18px rgba(184,92,74,0.22); }
+    .btn-yes:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(155,107,123,0.45); }
     .btn-action:active { transform: scale(0.94); }
 
-    /* Empty state */
+    /* ── Empty state ── */
     .empty-state {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100%;
-      color: var(--muted);
       text-align: center;
       padding: 30px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
     }
 
-    .empty-state .e-icon { font-size: 3rem; margin-bottom: 12px; }
-    .empty-state p { font-size: 0.9rem; line-height: 1.6; }
+    .empty-state .e-icon { font-size: 2.5rem; margin-bottom: 14px; }
+    .empty-state p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
     .empty-state strong { color: var(--accent); }
 
-    /* Match modal */
+    /* ── Match modal ── */
     .overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(6px);
+      background: rgba(45,36,32,0.55);
+      backdrop-filter: blur(4px);
       z-index: 200;
       align-items: flex-end;
       justify-content: center;
@@ -399,13 +400,12 @@
 
     .modal {
       background: var(--surface);
-      border-radius: 28px 28px 0 0;
-      border: 1px solid var(--border);
-      border-bottom: none;
-      padding: 28px 24px 36px;
+      border-radius: 26px 26px 0 0;
+      border-top: 1px solid var(--border);
+      padding: 24px 22px 40px;
       width: 100%;
       max-width: 480px;
-      animation: slideUp 0.35s cubic-bezier(.22,.68,0,1.1);
+      animation: slideUp 0.38s cubic-bezier(.22,.68,0,1.1);
     }
 
     @keyframes slideUp {
@@ -414,63 +414,67 @@
     }
 
     .modal-handle {
-      width: 40px; height: 4px;
-      background: rgba(255,255,255,0.12);
+      width: 36px; height: 3px;
+      background: var(--border);
       border-radius: 4px;
-      margin: 0 auto 20px;
+      margin: 0 auto 22px;
     }
 
-    .match-header {
+    .match-row {
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 6px;
+      margin-bottom: 16px;
     }
 
-    .match-avatars {
+    .monogram-pair {
       display: flex;
       align-items: center;
     }
 
-    .avatar {
-      width: 48px; height: 48px;
+    .monogram {
+      width: 46px; height: 46px;
       border-radius: 50%;
-      object-fit: cover;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
       border: 2px solid var(--surface);
+      flex-shrink: 0;
     }
 
-    .avatar:last-child { margin-left: -16px; }
+    .monogram:last-child { margin-left: -14px; background: var(--gold); }
 
-    .match-text h2 {
-      font-size: 1.15rem;
-      font-weight: 700;
+    .match-copy h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
       color: var(--text);
     }
 
-    .match-text p {
+    .match-copy p {
       font-size: 0.8rem;
       color: var(--muted);
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
-    .match-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: linear-gradient(135deg, rgba(167,139,250,0.15), rgba(129,140,248,0.15));
-      border: 1px solid rgba(167,139,250,0.25);
-      border-radius: 20px;
-      padding: 5px 14px;
-      font-size: 0.78rem;
-      font-weight: 600;
+    .match-tag {
+      display: inline-block;
+      background: rgba(155,107,123,0.1);
+      border: 1px solid rgba(155,107,123,0.2);
       color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
       margin-bottom: 18px;
+      letter-spacing: 0.4px;
     }
 
     .msg-area {
-      background: var(--card);
+      background: var(--light);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 4px 4px 4px 14px;
       display: flex;
       align-items: flex-end;
@@ -482,7 +486,7 @@
       background: transparent;
       border: none;
       color: var(--text);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-family: 'Inter', sans-serif;
       resize: none;
       outline: none;
@@ -494,28 +498,28 @@
     .msg-area textarea::placeholder { color: var(--muted); }
 
     .send-btn {
-      width: 40px; height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: var(--accent);
       border: none;
       color: #fff;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
       margin-bottom: 2px;
-      transition: opacity 0.2s;
+      transition: background 0.2s;
     }
 
-    .send-btn:hover { opacity: 0.88; }
+    .send-btn:hover { background: #885f6d; }
 
     .modal-dismiss {
       width: 100%;
-      margin-top: 12px;
-      padding: 11px;
+      margin-top: 10px;
+      padding: 12px;
       background: transparent;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       color: var(--muted);
       font-size: 0.85rem;
       font-family: 'Inter', sans-serif;
@@ -525,18 +529,17 @@
 
     .modal-dismiss:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* Toast */
+    /* ── Toast ── */
     .toast {
       position: fixed;
-      bottom: 30px;
+      bottom: 28px;
       left: 50%;
       transform: translateX(-50%) translateY(80px);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 12px 22px;
+      background: var(--text);
+      color: #fff;
+      padding: 11px 22px;
       border-radius: 40px;
-      font-size: 0.85rem;
+      font-size: 0.83rem;
       font-weight: 500;
       z-index: 300;
       transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), opacity 0.3s;
@@ -552,28 +555,28 @@
 <header>
   <div>
     <div class="logo">Thredl</div>
-    <div class="logo-sub">NWA Closet Swap</div>
+    <div class="logo-tagline">NWA Closet Swap</div>
   </div>
-  <div class="header-right">👤</div>
+  <div class="profile-dot">ME</div>
 </header>
 
 <div class="container">
 
-  <!-- Your listing -->
+  <!-- Listing panel -->
   <div class="panel">
-    <div class="panel-label">Your Listing</div>
+    <div class="panel-label">List Your Item</div>
 
     <div class="upload-area" id="uploadArea">
       <input type="file" accept="image/*" id="fileInput" />
-      <div class="upload-icon">📸</div>
-      <p><span>Tap to upload</span> a photo of your item</p>
+      <div class="upload-icon">🪡</div>
+      <p><strong>Tap to add a photo</strong> of your item</p>
     </div>
     <img id="uploadPreview" class="upload-preview" alt="preview" />
 
     <div class="fields">
       <div class="select-wrap">
         <select id="location">
-          <option value="">📍 City</option>
+          <option value="">City</option>
           <option>Bentonville</option>
           <option>Rogers</option>
           <option>Fayetteville</option>
@@ -603,24 +606,24 @@
       </div>
     </div>
 
-    <button class="publish-btn" onclick="publishListing()">Start Swapping →</button>
+    <button class="publish-btn" onclick="publishListing()">Start Browsing</button>
   </div>
 
   <!-- Stack header -->
-  <div class="stack-label">
-    <span>Browse Swaps</span>
-    <div class="stack-count" id="countBadge">— items</div>
+  <div class="stack-header">
+    <div class="stack-title">Nearby Swaps</div>
+    <div class="stack-count" id="countBadge"></div>
   </div>
 
   <!-- Card stack -->
   <div class="card-stack" id="cardStack">
     <div class="empty-state">
-      <div class="e-icon">👗</div>
-      <p>Fill out your listing above<br/>to start browsing local swaps in <strong>NWA</strong></p>
+      <div class="e-icon">🧥</div>
+      <p>Add your listing above to browse<br/>items available to swap in <strong>NWA</strong></p>
     </div>
   </div>
 
-  <!-- Swipe buttons -->
+  <!-- Action buttons -->
   <div class="actions">
     <button class="btn-action btn-no"  onclick="swipe('no')"  title="Pass">✕</button>
     <button class="btn-action btn-yes" onclick="swipe('yes')" title="Swap">✓</button>
@@ -628,92 +631,97 @@
 
 </div>
 
-<!-- Match / message modal -->
+<!-- Match modal -->
 <div class="overlay" id="matchOverlay">
   <div class="modal">
     <div class="modal-handle"></div>
-    <div class="match-header">
-      <div class="match-avatars">
-        <img class="avatar" id="matchAvatar" src="" alt="match" />
-        <img class="avatar" src="https://api.dicebear.com/7.x/thumbs/svg?seed=you&backgroundColor=a78bfa" alt="you" />
+
+    <div class="match-row">
+      <div class="monogram-pair">
+        <div class="monogram" id="matchMonogram" style="background:var(--accent);">?</div>
+        <div class="monogram">Y</div>
       </div>
-      <div class="match-text">
-        <h2>It's a Match! 🎉</h2>
-        <p id="matchName">They want your swap too</p>
+      <div class="match-copy">
+        <h2>It's a Match</h2>
+        <p id="matchName">She loves your piece too</p>
       </div>
     </div>
-    <div class="match-badge">✦ Mutual swap interest in NWA</div>
+
+    <div class="match-tag">✦ Mutual interest · Northwest Arkansas</div>
 
     <div class="msg-area">
-      <textarea id="msgBox" placeholder="Hey! I love your piece — want to meet up in Bentonville to swap?" rows="2"></textarea>
-      <button class="send-btn" onclick="sendMessage()">➤</button>
+      <textarea id="msgBox" placeholder="Hi! I'd love to swap — are you available this week?" rows="2"></textarea>
+      <button class="send-btn" onclick="sendMessage()">→</button>
     </div>
-    <button class="modal-dismiss" onclick="closeModal()">Maybe later</button>
+    <button class="modal-dismiss" onclick="closeModal()">Maybe another time</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-  const NWA_CITIES = [
-    'Bentonville','Rogers','Fayetteville','Springdale',
-    'Bella Vista','Centerton','Siloam Springs','Cave Springs',
-    'Lowell','Johnson','Elm Springs','Highfill'
-  ];
-
   const unsplash = id => `https://images.unsplash.com/photo-${id}?w=500&q=80&fit=crop`;
-  const avatar   = (seed, color) => `https://api.dicebear.com/7.x/thumbs/svg?seed=${seed}&backgroundColor=${color}`;
 
   const cards = [
-    { name: "Vintage Levi's Denim Jacket",  size: "M",   city: "Bentonville",    img: unsplash("1601933513793-537c8c0a1e7e"), user: "Jordan K.",  avatar: avatar("jordan",  "818cf8") },
-    { name: "Floral Midi Dress",            size: "S",   city: "Fayetteville",   img: unsplash("1572804013309-59a88b7e92f1"), user: "Mia T.",     avatar: avatar("mia",     "f9a8d4") },
-    { name: "White Air Force 1s",           size: "10",  city: "Rogers",         img: unsplash("1542291026-7eec264c27ff"),    user: "Sam R.",     avatar: avatar("sam",     "6ee7b7") },
-    { name: "Linen Blazer",                 size: "L",   city: "Springdale",     img: unsplash("1507679799987-c73779587ccf"), user: "Alex W.",    avatar: avatar("alex",    "fcd34d") },
-    { name: "Boho Maxi Skirt",              size: "XS",  city: "Bella Vista",    img: unsplash("1583496661160-fb5218e5a677"), user: "Priya L.",   avatar: avatar("priya",   "c4b5fd") },
-    { name: "Oversized Hoodie",             size: "XL",  city: "Centerton",      img: unsplash("1556821840-3a63f15732ce"),    user: "Tyler B.",   avatar: avatar("tyler",   "86efac") },
-    { name: "High-Waist Mom Jeans",         size: "S",   city: "Bentonville",    img: unsplash("1541099649105-f69ad21f3246"), user: "Kayla M.",   avatar: avatar("kayla",   "fda4af") },
-    { name: "Puffer Jacket",                size: "M",   city: "Rogers",         img: unsplash("1548036328-c9fa89d128fa"),    user: "Nate G.",    avatar: avatar("nate",    "7dd3fc") },
-    { name: "Silky Slip Dress",             size: "XS",  city: "Fayetteville",   img: unsplash("1515886657613-9f3515b0c78f"), user: "Hailey S.",  avatar: avatar("hailey",  "f0abfc") },
-    { name: "Platform Sneakers",            size: "8",   city: "Springdale",     img: unsplash("1600269452121-4f2416e55c28"), user: "Bri D.",     avatar: avatar("bri",     "6ee7b7") },
-    { name: "Wool Trench Coat",             size: "L",   city: "Bentonville",    img: unsplash("1591047139829-d91aecb6caea"), user: "Marcus J.",  avatar: avatar("marcus",  "fdba74") },
-    { name: "Wrap Midi Dress",              size: "M",   city: "Rogers",         img: unsplash("1496747611176-843222e1e57c"), user: "Layla R.",   avatar: avatar("layla",   "c4b5fd") },
-    { name: "Vintage Graphic Tee",          size: "S",   city: "Cave Springs",   img: unsplash("1489987707025-afc232f7ea0f"), user: "Drew C.",    avatar: avatar("drew",    "a5f3fc") },
-    { name: "Leather Ankle Boots",          size: "7",   city: "Lowell",         img: unsplash("1542621334-8427b31bc97f"),    user: "Jade P.",    avatar: avatar("jade",    "bbf7d0") },
-    { name: "Bomber Jacket",               size: "M",   city: "Johnson",        img: unsplash("1551537482-f2075a1d41f2"),    user: "Eli H.",     avatar: avatar("eli",     "fed7aa") },
-    { name: "Flowy Sundress",              size: "S",   city: "Bella Vista",    img: unsplash("1539109136881-3be0616acf4b"), user: "Anna F.",    avatar: avatar("anna",    "fce7f3") },
-    { name: "Chelsea Boots",               size: "9",   city: "Fayetteville",   img: unsplash("1543163521-1bf539c55dd2"),    user: "Cole V.",    avatar: avatar("cole",    "ddd6fe") },
-    { name: "Corduroy Wide-Leg Pants",     size: "L",   city: "Centerton",      img: unsplash("1523381210434-271e8be1f52b"), user: "Sage M.",    avatar: avatar("sage",    "99f6e4") },
-    { name: "Silk Button-Down Blouse",     size: "M",   city: "Rogers",         img: unsplash("1576566588028-4147f3842f27"), user: "Tess W.",    avatar: avatar("tess",    "e9d5ff") },
-    { name: "Brooks Running Shoes",        size: "11",  city: "Highfill",       img: unsplash("1491553895911-0055eca6402d"), user: "Ryan O.",    avatar: avatar("ryan",    "bfdbfe") },
-    { name: "Cargo Joggers",               size: "L",   city: "Springdale",     img: unsplash("1603252109303-2751441dd157"), user: "Finn K.",    avatar: avatar("finn",    "fef08a") },
-    { name: "Pleated Mini Skirt",          size: "XS",  city: "Siloam Springs", img: unsplash("1551488831-00ddcb6c6bd3"),    user: "Zara N.",    avatar: avatar("zara",    "fbcfe8") },
-    { name: "Chunky Knit Cardigan",        size: "S",   city: "Bentonville",    img: unsplash("1434389677669-e08b4cac3105"), user: "Olive T.",   avatar: avatar("olive",   "d9f99d") },
-    { name: "Oxford Brogues",              size: "8",   city: "Elm Springs",    img: unsplash("1614093302611-8efc8c5d07be"), user: "Remi A.",    avatar: avatar("remi",    "fde68a") },
-    { name: "Moto Leather Jacket",         size: "M",   city: "Rogers",         img: unsplash("1551232864-3f0890e580d9"),    user: "Cass B.",    avatar: avatar("cass",    "cbd5e1") },
-    { name: "Off-Shoulder Sundress",       size: "XS",  city: "Fayetteville",   img: unsplash("1596755094514-f87e34085b2c"), user: "Luna G.",    avatar: avatar("luna",    "f5d0fe") },
-    { name: "Straight-Leg Khakis",         size: "M",   city: "Springdale",     img: unsplash("1617952236317-0bd127407984"), user: "Reed S.",    avatar: avatar("reed",    "a7f3d0") },
-    { name: "Vintage Band Tee",            size: "L",   city: "Bentonville",    img: unsplash("1503342217505-b0a15ec3261c"), user: "Nico P.",    avatar: avatar("nico",    "fca5a5") },
-    { name: "Strappy Block Heels",         size: "7",   city: "Rogers",         img: unsplash("1612731710236-cd0430f4b49c"), user: "Vera J.",    avatar: avatar("vera",    "c7d2fe") },
-    { name: "Merino Wool Turtleneck",      size: "S",   city: "Bella Vista",    img: unsplash("1578932750294-f5075e85f44a"), user: "Faye C.",    avatar: avatar("faye",    "bae6fd") },
+    { name: "Vintage Levi's Denim Jacket",  size: "M",   city: "Bentonville",    img: unsplash("1601933513793-537c8c0a1e7e"), user: "Jordan K."  },
+    { name: "Floral Midi Dress",            size: "S",   city: "Fayetteville",   img: unsplash("1572804013309-59a88b7e92f1"), user: "Mia T."     },
+    { name: "White Air Force 1s",           size: "10",  city: "Rogers",         img: unsplash("1542291026-7eec264c27ff"),    user: "Sam R."     },
+    { name: "Linen Blazer",                 size: "L",   city: "Springdale",     img: unsplash("1507679799987-c73779587ccf"), user: "Alex W."    },
+    { name: "Boho Maxi Skirt",              size: "XS",  city: "Bella Vista",    img: unsplash("1583496661160-fb5218e5a677"), user: "Priya L."   },
+    { name: "Oversized Hoodie",             size: "XL",  city: "Centerton",      img: unsplash("1556821840-3a63f15732ce"),    user: "Taylor B."  },
+    { name: "High-Waist Mom Jeans",         size: "S",   city: "Bentonville",    img: unsplash("1541099649105-f69ad21f3246"), user: "Kayla M."   },
+    { name: "Puffer Jacket",                size: "M",   city: "Rogers",         img: unsplash("1548036328-c9fa89d128fa"),    user: "Natalie G." },
+    { name: "Silky Slip Dress",             size: "XS",  city: "Fayetteville",   img: unsplash("1515886657613-9f3515b0c78f"), user: "Hailey S."  },
+    { name: "Platform Sneakers",            size: "8",   city: "Springdale",     img: unsplash("1600269452121-4f2416e55c28"), user: "Brianna D." },
+    { name: "Wool Trench Coat",             size: "L",   city: "Bentonville",    img: unsplash("1591047139829-d91aecb6caea"), user: "Margaret J."},
+    { name: "Wrap Midi Dress",              size: "M",   city: "Rogers",         img: unsplash("1496747611176-843222e1e57c"), user: "Layla R."   },
+    { name: "Vintage Graphic Tee",          size: "S",   city: "Cave Springs",   img: unsplash("1489987707025-afc232f7ea0f"), user: "Drew C."    },
+    { name: "Leather Ankle Boots",          size: "7",   city: "Lowell",         img: unsplash("1542621334-8427b31bc97f"),    user: "Jade P."    },
+    { name: "Bomber Jacket",                size: "M",   city: "Johnson",        img: unsplash("1551537482-f2075a1d41f2"),    user: "Elaine H."  },
+    { name: "Flowy Sundress",               size: "S",   city: "Bella Vista",    img: unsplash("1539109136881-3be0616acf4b"), user: "Anna F."    },
+    { name: "Chelsea Boots",                size: "9",   city: "Fayetteville",   img: unsplash("1543163521-1bf539c55dd2"),    user: "Colette V." },
+    { name: "Corduroy Wide-Leg Pants",      size: "L",   city: "Centerton",      img: unsplash("1523381210434-271e8be1f52b"), user: "Sage M."    },
+    { name: "Silk Button-Down Blouse",      size: "M",   city: "Rogers",         img: unsplash("1576566588028-4147f3842f27"), user: "Tessa W."   },
+    { name: "Brooks Running Shoes",         size: "11",  city: "Highfill",       img: unsplash("1491553895911-0055eca6402d"), user: "Renee O."   },
+    { name: "Cargo Joggers",                size: "L",   city: "Springdale",     img: unsplash("1603252109303-2751441dd157"), user: "Fiona K."   },
+    { name: "Pleated Mini Skirt",           size: "XS",  city: "Siloam Springs", img: unsplash("1551488831-00ddcb6c6bd3"),    user: "Zara N."    },
+    { name: "Chunky Knit Cardigan",         size: "S",   city: "Bentonville",    img: unsplash("1434389677669-e08b4cac3105"), user: "Olivia T."  },
+    { name: "Oxford Brogues",               size: "8",   city: "Elm Springs",    img: unsplash("1614093302611-8efc8c5d07be"), user: "Remi A."    },
+    { name: "Moto Leather Jacket",          size: "M",   city: "Rogers",         img: unsplash("1551232864-3f0890e580d9"),    user: "Cassie B."  },
+    { name: "Off-Shoulder Sundress",        size: "XS",  city: "Fayetteville",   img: unsplash("1596755094514-f87e34085b2c"), user: "Luna G."    },
+    { name: "Straight-Leg Khakis",          size: "M",   city: "Springdale",     img: unsplash("1617952236317-0bd127407984"), user: "Reese S."   },
+    { name: "Vintage Band Tee",             size: "L",   city: "Bentonville",    img: unsplash("1503342217505-b0a15ec3261c"), user: "Nicole P."  },
+    { name: "Strappy Block Heels",          size: "7",   city: "Rogers",         img: unsplash("1612731710236-cd0430f4b49c"), user: "Vera J."    },
+    { name: "Merino Wool Turtleneck",       size: "S",   city: "Bella Vista",    img: unsplash("1578932750294-f5075e85f44a"), user: "Faye C."    },
   ];
 
-  let idx = 0;
-  let active = false;
+  let idx = 0, active = false;
+
+  const accentColors = ['#9b6b7b','#c4a882','#7a8fa6','#8a9e80','#b07d6e','#9688a8'];
+
+  function initials(name) {
+    return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  }
+
+  function userColor(name) {
+    let h = 0;
+    for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
+    return accentColors[Math.abs(h) % accentColors.length];
+  }
 
   function publishListing() {
     const loc  = document.getElementById('location').value;
     const size = document.getElementById('size').value;
     if (!loc)  { showToast('Please select your city'); return; }
     if (!size) { showToast('Please select your size'); return; }
-    active = true;
-    idx = 0;
+    active = true; idx = 0;
     updateCount();
     renderStack();
   }
 
   function updateCount() {
     const rem = Math.max(0, cards.length - idx);
-    document.getElementById('countBadge').textContent = rem + ' item' + (rem !== 1 ? 's' : '');
+    document.getElementById('countBadge').textContent = rem + ' available';
   }
 
   function renderStack() {
@@ -722,31 +730,33 @@
 
     if (idx >= cards.length) {
       stack.innerHTML = `<div class="empty-state">
-        <div class="e-icon">🌟</div>
-        <p>You've seen all NWA swaps!<br/>Check back soon for new listings.</p>
+        <div class="e-icon">✨</div>
+        <p>You've seen everything nearby.<br/>Check back soon for new listings.</p>
       </div>`;
       return;
     }
 
-    const visible = cards.slice(idx, idx + 3).reverse();
-    visible.forEach((c, i) => {
-      const isTop = i === visible.length - 1;
-      const depth = visible.length - 1 - i;
+    cards.slice(idx, idx + 3).reverse().forEach((c, i, arr) => {
+      const depth = arr.length - 1 - i;
       const el = document.createElement('div');
       el.className = 'card';
-      el.style.transform = `scale(${1 - depth * 0.04}) translateY(${depth * -12}px)`;
+      el.style.transform = `scale(${1 - depth * 0.035}) translateY(${depth * -10}px)`;
       el.style.zIndex = i;
       el.innerHTML = `
-        <div class="stamp stamp-yes">SWAP ✓</div>
-        <div class="stamp stamp-no">PASS ✕</div>
-        <img src="${c.img}" alt="${c.name}" onerror="this.style.background='#2d2d3d';this.style.display='flex';this.src=''" />
+        <div class="stamp stamp-yes">Swap</div>
+        <div class="stamp stamp-no">Pass</div>
+        <img src="${c.img}" alt="${c.name}"
+             onerror="this.style.minHeight='300px';this.style.background='#f0ebe6';this.removeAttribute('src');" />
         <div class="card-gradient"></div>
         <div class="card-info">
           <div class="card-name">${c.name}</div>
           <div class="card-meta">
             <span class="pill">📍 ${c.city}</span>
             <span class="pill">Size ${c.size}</span>
-            <span class="pill">👤 ${c.user}</span>
+            <span class="user-pill">
+              <span class="user-initial" style="background:${userColor(c.user)}">${initials(c.user)}</span>
+              <span>${c.user}</span>
+            </span>
           </div>
         </div>`;
       stack.appendChild(el);
@@ -754,34 +764,30 @@
   }
 
   function swipe(dir) {
-    if (!active) { showToast('List your item first!'); return; }
+    if (!active) { showToast('Add your listing first'); return; }
     if (idx >= cards.length) return;
 
-    const stack = document.getElementById('cardStack');
-    const top = stack.querySelector('.card:last-child');
+    const top = document.querySelector('#cardStack .card:last-child');
     if (!top) return;
 
-    const stamp = top.querySelector(dir === 'yes' ? '.stamp-yes' : '.stamp-no');
-    stamp.style.opacity = '1';
+    top.querySelector(dir === 'yes' ? '.stamp-yes' : '.stamp-no').style.opacity = '1';
 
     setTimeout(() => {
       top.classList.add(dir === 'yes' ? 'fly-right' : 'fly-left');
       setTimeout(() => {
-        const matched = cards[idx];
-        idx++;
+        const matched = cards[idx++];
         updateCount();
-        if (dir === 'yes') {
-          openMatch(matched);
-        } else {
-          renderStack();
-        }
+        if (dir === 'yes') openMatch(matched);
+        else renderStack();
       }, 380);
     }, 120);
   }
 
   function openMatch(card) {
-    document.getElementById('matchAvatar').src = card.avatar;
-    document.getElementById('matchName').textContent = card.user + ' wants to swap too!';
+    const mono = document.getElementById('matchMonogram');
+    mono.textContent = initials(card.user);
+    mono.style.background = userColor(card.user);
+    document.getElementById('matchName').textContent = card.user + ' is interested in swapping';
     document.getElementById('matchOverlay').classList.add('active');
   }
 
@@ -792,9 +798,10 @@
 
   function sendMessage() {
     const msg = document.getElementById('msgBox').value.trim();
-    if (!msg) { showToast('Write a message first!'); return; }
+    if (!msg) { showToast('Write a message first'); return; }
+    const name = document.getElementById('matchName').textContent.split(' is')[0];
     closeModal();
-    showToast('Message sent to ' + document.getElementById('matchName').textContent.split(' wants')[0] + ' 🎉');
+    showToast('Message sent to ' + name);
     document.getElementById('msgBox').value = '';
   }
 
@@ -805,7 +812,6 @@
     setTimeout(() => t.classList.remove('show'), 2800);
   }
 
-  // Upload preview
   document.getElementById('fileInput').addEventListener('change', function () {
     const file = this.files[0];
     if (!file) return;
@@ -814,7 +820,7 @@
       const p = document.getElementById('uploadPreview');
       p.src = e.target.result;
       p.style.display = 'block';
-      document.querySelector('.upload-area p').innerHTML = '<span>Photo added ✓</span> Tap to change';
+      document.querySelector('.upload-area p').innerHTML = '<strong>Photo added ✓</strong> — tap to change';
     };
     reader.readAsDataURL(file);
   });
