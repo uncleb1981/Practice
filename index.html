@@ -261,24 +261,11 @@
       display: none;
       position: absolute;
       inset: 0;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(160deg, #f5ede8 0%, #e8dbd4 100%);
-      gap: 10px;
-    }
-
-    .card-img-fallback .fb-icon { font-size: 3.5rem; }
-    .card-img-fallback .fb-label {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.85rem;
-      color: var(--muted);
-      text-align: center;
-      padding: 0 20px;
+      background: linear-gradient(160deg, #f0e8e2 0%, #e2d5cc 100%);
     }
 
     .card-img-wrap.failed img { display: none; }
-    .card-img-wrap.failed .card-img-fallback { display: flex; }
+    .card-img-wrap.failed .card-img-fallback { display: block; }
 
     .card-gradient {
       position: absolute;
@@ -670,7 +657,7 @@
 
     <div class="match-row">
       <div class="monogram-pair">
-        <div class="monogram" id="matchMonogram" style="background:var(--accent);">?</div>
+        <div class="monogram" style="background:var(--accent);">♡</div>
         <div class="monogram">Y</div>
       </div>
       <div class="match-copy">
@@ -695,54 +682,42 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  const unsplash = id => `https://images.unsplash.com/photo-${id}?w=500&q=80&fit=crop`;
+  const lf = (kw, lock) => `https://loremflickr.com/500/640/${kw}?lock=${lock}`;
 
   const cards = [
-    { name: "Vintage Levi's Denim Jacket",  size: "M",   city: "Bentonville",    icon:"🧥", img: unsplash("1601933513793-537c8c0a1e7e"), user: "Jordan K."  },
-    { name: "Floral Midi Dress",            size: "S",   city: "Fayetteville",   icon:"👗", img: unsplash("1572804013309-59a88b7e92f1"), user: "Mia T."     },
-    { name: "White Air Force 1s",           size: "10",  city: "Rogers",         icon:"👟", img: unsplash("1542291026-7eec264c27ff"),    user: "Sam R."     },
-    { name: "Linen Blazer",                 size: "L",   city: "Springdale",     icon:"👔", img: unsplash("1507679799987-c73779587ccf"), user: "Alex W."    },
-    { name: "Boho Maxi Skirt",              size: "XS",  city: "Bella Vista",    icon:"👘", img: unsplash("1583496661160-fb5218e5a677"), user: "Priya L."   },
-    { name: "Oversized Hoodie",             size: "XL",  city: "Centerton",      icon:"🧣", img: unsplash("1556821840-3a63f15732ce"),    user: "Taylor B."  },
-    { name: "High-Waist Mom Jeans",         size: "S",   city: "Bentonville",    icon:"👖", img: unsplash("1541099649105-f69ad21f3246"), user: "Kayla M."   },
-    { name: "Puffer Jacket",                size: "M",   city: "Rogers",         icon:"🧥", img: unsplash("1548036328-c9fa89d128fa"),    user: "Natalie G." },
-    { name: "Silky Slip Dress",             size: "XS",  city: "Fayetteville",   icon:"👗", img: unsplash("1515886657613-9f3515b0c78f"), user: "Hailey S."  },
-    { name: "Platform Sneakers",            size: "8",   city: "Springdale",     icon:"👟", img: unsplash("1600269452121-4f2416e55c28"), user: "Brianna D." },
-    { name: "Wool Trench Coat",             size: "L",   city: "Bentonville",    icon:"🧥", img: unsplash("1591047139829-d91aecb6caea"), user: "Margaret J."},
-    { name: "Wrap Midi Dress",              size: "M",   city: "Rogers",         icon:"👗", img: unsplash("1496747611176-843222e1e57c"), user: "Layla R."   },
-    { name: "Vintage Graphic Tee",          size: "S",   city: "Cave Springs",   icon:"👕", img: unsplash("1489987707025-afc232f7ea0f"), user: "Drew C."    },
-    { name: "Leather Ankle Boots",          size: "7",   city: "Lowell",         icon:"👢", img: unsplash("1542621334-8427b31bc97f"),    user: "Jade P."    },
-    { name: "Bomber Jacket",                size: "M",   city: "Johnson",        icon:"🧥", img: unsplash("1551537482-f2075a1d41f2"),    user: "Elaine H."  },
-    { name: "Flowy Sundress",               size: "S",   city: "Bella Vista",    icon:"👗", img: unsplash("1539109136881-3be0616acf4b"), user: "Anna F."    },
-    { name: "Chelsea Boots",                size: "9",   city: "Fayetteville",   icon:"👢", img: unsplash("1543163521-1bf539c55dd2"),    user: "Colette V." },
-    { name: "Corduroy Wide-Leg Pants",      size: "L",   city: "Centerton",      icon:"👖", img: unsplash("1523381210434-271e8be1f52b"), user: "Sage M."    },
-    { name: "Silk Button-Down Blouse",      size: "M",   city: "Rogers",         icon:"👚", img: unsplash("1576566588028-4147f3842f27"), user: "Tessa W."   },
-    { name: "Brooks Running Shoes",         size: "11",  city: "Highfill",       icon:"👟", img: unsplash("1491553895911-0055eca6402d"), user: "Renee O."   },
-    { name: "Cargo Joggers",                size: "L",   city: "Springdale",     icon:"👖", img: unsplash("1603252109303-2751441dd157"), user: "Fiona K."   },
-    { name: "Pleated Mini Skirt",           size: "XS",  city: "Siloam Springs", icon:"👗", img: unsplash("1551488831-00ddcb6c6bd3"),    user: "Zara N."    },
-    { name: "Chunky Knit Cardigan",         size: "S",   city: "Bentonville",    icon:"🧶", img: unsplash("1434389677669-e08b4cac3105"), user: "Olivia T."  },
-    { name: "Oxford Brogues",               size: "8",   city: "Elm Springs",    icon:"👞", img: unsplash("1614093302611-8efc8c5d07be"), user: "Remi A."    },
-    { name: "Moto Leather Jacket",          size: "M",   city: "Rogers",         icon:"🧥", img: unsplash("1551232864-3f0890e580d9"),    user: "Cassie B."  },
-    { name: "Off-Shoulder Sundress",        size: "XS",  city: "Fayetteville",   icon:"👗", img: unsplash("1596755094514-f87e34085b2c"), user: "Luna G."    },
-    { name: "Straight-Leg Khakis",          size: "M",   city: "Springdale",     icon:"👖", img: unsplash("1617952236317-0bd127407984"), user: "Reese S."   },
-    { name: "Vintage Band Tee",             size: "L",   city: "Bentonville",    icon:"👕", img: unsplash("1503342217505-b0a15ec3261c"), user: "Nicole P."  },
-    { name: "Strappy Block Heels",          size: "7",   city: "Rogers",         icon:"👠", img: unsplash("1612731710236-cd0430f4b49c"), user: "Vera J."    },
-    { name: "Merino Wool Turtleneck",       size: "S",   city: "Bella Vista",    icon:"🧶", img: unsplash("1578932750294-f5075e85f44a"), user: "Faye C."    },
+    { size: "M",   city: "Bentonville",    img: lf("denim,jacket",   1)  },
+    { size: "S",   city: "Fayetteville",   img: lf("dress,floral",   2)  },
+    { size: "10",  city: "Rogers",         img: lf("sneakers",       3)  },
+    { size: "L",   city: "Springdale",     img: lf("blazer",         4)  },
+    { size: "XS",  city: "Bella Vista",    img: lf("skirt,fashion",  5)  },
+    { size: "XL",  city: "Centerton",      img: lf("hoodie",         6)  },
+    { size: "S",   city: "Bentonville",    img: lf("jeans,fashion",  7)  },
+    { size: "M",   city: "Rogers",         img: lf("coat,fashion",   8)  },
+    { size: "XS",  city: "Fayetteville",   img: lf("dress,silk",     9)  },
+    { size: "8",   city: "Springdale",     img: lf("platform,shoes", 10) },
+    { size: "L",   city: "Bentonville",    img: lf("trench,coat",    11) },
+    { size: "M",   city: "Rogers",         img: lf("dress,wrap",     12) },
+    { size: "S",   city: "Cave Springs",   img: lf("tshirt,fashion", 13) },
+    { size: "7",   city: "Lowell",         img: lf("boots,ankle",    14) },
+    { size: "M",   city: "Johnson",        img: lf("bomber,jacket",  15) },
+    { size: "S",   city: "Bella Vista",    img: lf("sundress",       16) },
+    { size: "9",   city: "Fayetteville",   img: lf("chelsea,boots",  17) },
+    { size: "L",   city: "Centerton",      img: lf("pants,fashion",  18) },
+    { size: "M",   city: "Rogers",         img: lf("blouse,silk",    19) },
+    { size: "11",  city: "Highfill",       img: lf("running,shoes",  20) },
+    { size: "L",   city: "Springdale",     img: lf("joggers,fashion",21) },
+    { size: "XS",  city: "Siloam Springs", img: lf("miniskirt",      22) },
+    { size: "S",   city: "Bentonville",    img: lf("cardigan,knit",  23) },
+    { size: "8",   city: "Elm Springs",    img: lf("oxford,shoes",   24) },
+    { size: "M",   city: "Rogers",         img: lf("leather,jacket", 25) },
+    { size: "XS",  city: "Fayetteville",   img: lf("summer,dress",   26) },
+    { size: "M",   city: "Springdale",     img: lf("khaki,pants",    27) },
+    { size: "L",   city: "Bentonville",    img: lf("vintage,shirt",  28) },
+    { size: "7",   city: "Rogers",         img: lf("heels,shoes",    29) },
+    { size: "S",   city: "Bella Vista",    img: lf("turtleneck,knit",30) },
   ];
 
   let idx = 0, active = false;
-
-  const accentColors = ['#9b6b7b','#c4a882','#7a8fa6','#8a9e80','#b07d6e','#9688a8'];
-
-  function initials(name) {
-    return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
-  }
-
-  function userColor(name) {
-    let h = 0;
-    for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
-    return accentColors[Math.abs(h) % accentColors.length];
-  }
 
   function publishListing() {
     const loc  = document.getElementById('location').value;
@@ -781,23 +756,15 @@
         <div class="stamp stamp-yes">Swap</div>
         <div class="stamp stamp-no">Pass</div>
         <div class="card-img-wrap">
-          <img src="${c.img}" alt="${c.name}" loading="lazy"
+          <img src="${c.img}" alt="clothing item" loading="lazy"
                onerror="this.closest('.card-img-wrap').classList.add('failed')" />
-          <div class="card-img-fallback">
-            <span class="fb-icon">${c.icon}</span>
-            <span class="fb-label">${c.name}</span>
-          </div>
+          <div class="card-img-fallback"></div>
         </div>
         <div class="card-gradient"></div>
         <div class="card-info">
-          <div class="card-name">${c.name}</div>
           <div class="card-meta">
             <span class="pill">📍 ${c.city}</span>
             <span class="pill">Size ${c.size}</span>
-            <span class="user-pill">
-              <span class="user-initial" style="background:${userColor(c.user)}">${initials(c.user)}</span>
-              <span>${c.user}</span>
-            </span>
           </div>
         </div>`;
       stack.appendChild(el);
@@ -825,10 +792,7 @@
   }
 
   function openMatch(card) {
-    const mono = document.getElementById('matchMonogram');
-    mono.textContent = initials(card.user);
-    mono.style.background = userColor(card.user);
-    document.getElementById('matchName').textContent = card.user + ' is interested in swapping';
+    document.getElementById('matchName').textContent = 'They want to barter too!';
     document.getElementById('matchOverlay').classList.add('active');
   }
 
@@ -840,9 +804,8 @@
   function sendMessage() {
     const msg = document.getElementById('msgBox').value.trim();
     if (!msg) { showToast('Write a message first'); return; }
-    const name = document.getElementById('matchName').textContent.split(' is')[0];
     closeModal();
-    showToast('Message sent to ' + name);
+    showToast('Message sent!');
     document.getElementById('msgBox').value = '';
   }
 
