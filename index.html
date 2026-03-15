@@ -385,6 +385,239 @@
     .btn-yes:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(155,107,123,0.45); }
     .btn-action:active { transform: scale(0.94); }
 
+    /* ── Hero featured drop ── */
+    .hero-drop {
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 36px rgba(45,36,32,0.13);
+      position: relative;
+      background: var(--surface);
+    }
+
+    .hero-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 310px;
+      overflow: hidden;
+    }
+
+    .hero-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+    }
+
+    .hero-gradient {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 160px;
+      background: linear-gradient(to top, rgba(20,14,12,0.78) 0%, transparent 100%);
+    }
+
+    .hero-badges {
+      position: absolute;
+      top: 14px; left: 14px;
+      display: flex;
+      gap: 7px;
+    }
+
+    .badge-featured {
+      background: var(--gold);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .badge-new {
+      background: var(--yes);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .hero-overlay-text {
+      position: absolute;
+      bottom: 16px; left: 18px; right: 18px;
+    }
+
+    .hero-item-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .hero-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hero-pill {
+      background: rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.92);
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-value {
+      background: rgba(196,168,130,0.28);
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(196,168,130,0.4);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-body {
+      padding: 15px 18px 18px;
+    }
+
+    .hero-social-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 13px;
+    }
+
+    .hero-interest {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .avatar-stack {
+      display: flex;
+    }
+
+    .avatar-stack .av {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--surface);
+      margin-left: -7px;
+      flex-shrink: 0;
+    }
+
+    .avatar-stack .av:first-child { margin-left: 0; }
+
+    .interest-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .interest-label strong { color: var(--accent); font-weight: 700; }
+
+    .time-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .time-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--yes);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .owner-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 13px;
+      margin-bottom: 13px;
+    }
+
+    .owner-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .owner-info { flex: 1; }
+    .owner-name { font-size: 0.83rem; font-weight: 600; color: var(--text); }
+    .owner-sub  { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
+
+    .owner-verified {
+      font-size: 0.68rem;
+      color: var(--yes);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .hero-cta {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--accent), #7a4f5e);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      letter-spacing: 0.6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .hero-cta:hover { opacity: 0.9; }
+    .hero-cta:active { transform: scale(0.98); }
+
+    .hero-cta-sub {
+      font-size: 0.71rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 8px;
+    }
+
     /* ── Empty state ── */
     .empty-state {
       display: flex;
@@ -580,6 +813,61 @@
 </header>
 
 <div class="container">
+
+  <!-- Hero featured drop -->
+  <div class="hero-drop">
+    <div class="hero-img-wrap">
+      <img
+        src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=82"
+        alt="Coach Tabby Shoulder Bag in camel leather"
+      />
+      <div class="hero-gradient"></div>
+      <div class="hero-badges">
+        <span class="badge-featured">✦ Featured</span>
+        <span class="badge-new">Just Listed</span>
+      </div>
+      <div class="hero-overlay-text">
+        <div class="hero-item-name">Coach Tabby 26 Shoulder Bag</div>
+        <div class="hero-meta-row">
+          <span class="hero-pill">📍 Bentonville</span>
+          <span class="hero-pill">Like New</span>
+          <span class="hero-value">Est. $425 retail</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-body">
+      <div class="hero-social-row">
+        <div class="hero-interest">
+          <div class="avatar-stack">
+            <div class="av" style="background:#9b6b7b;">A</div>
+            <div class="av" style="background:#c4a882;">K</div>
+            <div class="av" style="background:#6b9e7f;">M</div>
+            <div class="av" style="background:#7a6bb0;">R</div>
+          </div>
+          <div class="interest-label"><strong>34 people</strong> want this</div>
+        </div>
+        <div class="time-badge">
+          <div class="time-dot"></div>
+          Active now
+        </div>
+      </div>
+
+      <div class="owner-row">
+        <div class="owner-avatar">S</div>
+        <div class="owner-info">
+          <div class="owner-name">Sarah M.</div>
+          <div class="owner-sub">Bentonville · 12 swaps completed</div>
+        </div>
+        <div class="owner-verified">✓ Verified</div>
+      </div>
+
+      <button class="hero-cta" onclick="scrollToList()">
+        List your item to swap →
+      </button>
+      <div class="hero-cta-sub">List something and unlock swapping</div>
+    </div>
+  </div>
 
   <!-- Listing panel -->
   <div class="panel">
@@ -845,6 +1133,10 @@
     t.textContent = msg;
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  function scrollToList() {
+    document.querySelector('.panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   document.getElementById('fileInput').addEventListener('change', function () {
