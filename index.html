@@ -661,47 +661,40 @@
     'Lowell','Johnson','Elm Springs','Highfill'
   ];
 
+  const unsplash = id => `https://images.unsplash.com/photo-${id}?w=500&q=80&fit=crop`;
+  const avatar   = (seed, color) => `https://api.dicebear.com/7.x/thumbs/svg?seed=${seed}&backgroundColor=${color}`;
+
   const cards = [
-    {
-      name: "Vintage Levi's Denim Jacket",
-      size: "M",
-      city: "Bentonville",
-      img: "https://images.unsplash.com/photo-1601933513793-537c8c0a1e7e?w=500&q=80",
-      user: "Jordan K.",
-      avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=jordan&backgroundColor=818cf8"
-    },
-    {
-      name: "Floral Midi Dress",
-      size: "S",
-      city: "Fayetteville",
-      img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&q=80",
-      user: "Mia T.",
-      avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=mia&backgroundColor=f9a8d4"
-    },
-    {
-      name: "Air Force 1 Sneakers",
-      size: "10",
-      city: "Rogers",
-      img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80",
-      user: "Sam R.",
-      avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=sam&backgroundColor=6ee7b7"
-    },
-    {
-      name: "Linen Blazer",
-      size: "L",
-      city: "Springdale",
-      img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&q=80",
-      user: "Alex W.",
-      avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=alex&backgroundColor=fcd34d"
-    },
-    {
-      name: "Boho Maxi Skirt",
-      size: "XS",
-      city: "Bella Vista",
-      img: "https://images.unsplash.com/photo-1583496661160-fb5218e5a677?w=500&q=80",
-      user: "Priya L.",
-      avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=priya&backgroundColor=c4b5fd"
-    },
+    { name: "Vintage Levi's Denim Jacket",  size: "M",   city: "Bentonville",    img: unsplash("1601933513793-537c8c0a1e7e"), user: "Jordan K.",  avatar: avatar("jordan",  "818cf8") },
+    { name: "Floral Midi Dress",            size: "S",   city: "Fayetteville",   img: unsplash("1572804013309-59a88b7e92f1"), user: "Mia T.",     avatar: avatar("mia",     "f9a8d4") },
+    { name: "White Air Force 1s",           size: "10",  city: "Rogers",         img: unsplash("1542291026-7eec264c27ff"),    user: "Sam R.",     avatar: avatar("sam",     "6ee7b7") },
+    { name: "Linen Blazer",                 size: "L",   city: "Springdale",     img: unsplash("1507679799987-c73779587ccf"), user: "Alex W.",    avatar: avatar("alex",    "fcd34d") },
+    { name: "Boho Maxi Skirt",              size: "XS",  city: "Bella Vista",    img: unsplash("1583496661160-fb5218e5a677"), user: "Priya L.",   avatar: avatar("priya",   "c4b5fd") },
+    { name: "Oversized Hoodie",             size: "XL",  city: "Centerton",      img: unsplash("1556821840-3a63f15732ce"),    user: "Tyler B.",   avatar: avatar("tyler",   "86efac") },
+    { name: "High-Waist Mom Jeans",         size: "S",   city: "Bentonville",    img: unsplash("1541099649105-f69ad21f3246"), user: "Kayla M.",   avatar: avatar("kayla",   "fda4af") },
+    { name: "Puffer Jacket",                size: "M",   city: "Rogers",         img: unsplash("1548036328-c9fa89d128fa"),    user: "Nate G.",    avatar: avatar("nate",    "7dd3fc") },
+    { name: "Silky Slip Dress",             size: "XS",  city: "Fayetteville",   img: unsplash("1515886657613-9f3515b0c78f"), user: "Hailey S.",  avatar: avatar("hailey",  "f0abfc") },
+    { name: "Platform Sneakers",            size: "8",   city: "Springdale",     img: unsplash("1600269452121-4f2416e55c28"), user: "Bri D.",     avatar: avatar("bri",     "6ee7b7") },
+    { name: "Wool Trench Coat",             size: "L",   city: "Bentonville",    img: unsplash("1591047139829-d91aecb6caea"), user: "Marcus J.",  avatar: avatar("marcus",  "fdba74") },
+    { name: "Wrap Midi Dress",              size: "M",   city: "Rogers",         img: unsplash("1496747611176-843222e1e57c"), user: "Layla R.",   avatar: avatar("layla",   "c4b5fd") },
+    { name: "Vintage Graphic Tee",          size: "S",   city: "Cave Springs",   img: unsplash("1489987707025-afc232f7ea0f"), user: "Drew C.",    avatar: avatar("drew",    "a5f3fc") },
+    { name: "Leather Ankle Boots",          size: "7",   city: "Lowell",         img: unsplash("1542621334-8427b31bc97f"),    user: "Jade P.",    avatar: avatar("jade",    "bbf7d0") },
+    { name: "Bomber Jacket",               size: "M",   city: "Johnson",        img: unsplash("1551537482-f2075a1d41f2"),    user: "Eli H.",     avatar: avatar("eli",     "fed7aa") },
+    { name: "Flowy Sundress",              size: "S",   city: "Bella Vista",    img: unsplash("1539109136881-3be0616acf4b"), user: "Anna F.",    avatar: avatar("anna",    "fce7f3") },
+    { name: "Chelsea Boots",               size: "9",   city: "Fayetteville",   img: unsplash("1543163521-1bf539c55dd2"),    user: "Cole V.",    avatar: avatar("cole",    "ddd6fe") },
+    { name: "Corduroy Wide-Leg Pants",     size: "L",   city: "Centerton",      img: unsplash("1523381210434-271e8be1f52b"), user: "Sage M.",    avatar: avatar("sage",    "99f6e4") },
+    { name: "Silk Button-Down Blouse",     size: "M",   city: "Rogers",         img: unsplash("1576566588028-4147f3842f27"), user: "Tess W.",    avatar: avatar("tess",    "e9d5ff") },
+    { name: "Brooks Running Shoes",        size: "11",  city: "Highfill",       img: unsplash("1491553895911-0055eca6402d"), user: "Ryan O.",    avatar: avatar("ryan",    "bfdbfe") },
+    { name: "Cargo Joggers",               size: "L",   city: "Springdale",     img: unsplash("1603252109303-2751441dd157"), user: "Finn K.",    avatar: avatar("finn",    "fef08a") },
+    { name: "Pleated Mini Skirt",          size: "XS",  city: "Siloam Springs", img: unsplash("1551488831-00ddcb6c6bd3"),    user: "Zara N.",    avatar: avatar("zara",    "fbcfe8") },
+    { name: "Chunky Knit Cardigan",        size: "S",   city: "Bentonville",    img: unsplash("1434389677669-e08b4cac3105"), user: "Olive T.",   avatar: avatar("olive",   "d9f99d") },
+    { name: "Oxford Brogues",              size: "8",   city: "Elm Springs",    img: unsplash("1614093302611-8efc8c5d07be"), user: "Remi A.",    avatar: avatar("remi",    "fde68a") },
+    { name: "Moto Leather Jacket",         size: "M",   city: "Rogers",         img: unsplash("1551232864-3f0890e580d9"),    user: "Cass B.",    avatar: avatar("cass",    "cbd5e1") },
+    { name: "Off-Shoulder Sundress",       size: "XS",  city: "Fayetteville",   img: unsplash("1596755094514-f87e34085b2c"), user: "Luna G.",    avatar: avatar("luna",    "f5d0fe") },
+    { name: "Straight-Leg Khakis",         size: "M",   city: "Springdale",     img: unsplash("1617952236317-0bd127407984"), user: "Reed S.",    avatar: avatar("reed",    "a7f3d0") },
+    { name: "Vintage Band Tee",            size: "L",   city: "Bentonville",    img: unsplash("1503342217505-b0a15ec3261c"), user: "Nico P.",    avatar: avatar("nico",    "fca5a5") },
+    { name: "Strappy Block Heels",         size: "7",   city: "Rogers",         img: unsplash("1612731710236-cd0430f4b49c"), user: "Vera J.",    avatar: avatar("vera",    "c7d2fe") },
+    { name: "Merino Wool Turtleneck",      size: "S",   city: "Bella Vista",    img: unsplash("1578932750294-f5075e85f44a"), user: "Faye C.",    avatar: avatar("faye",    "bae6fd") },
   ];
 
   let idx = 0;
@@ -746,7 +739,7 @@
       el.innerHTML = `
         <div class="stamp stamp-yes">SWAP ✓</div>
         <div class="stamp stamp-no">PASS ✕</div>
-        <img src="${c.img}" alt="${c.name}" />
+        <img src="${c.img}" alt="${c.name}" onerror="this.style.background='#2d2d3d';this.style.display='flex';this.src=''" />
         <div class="card-gradient"></div>
         <div class="card-info">
           <div class="card-name">${c.name}</div>
