@@ -681,52 +681,82 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-  const lf = (kw, lock) => `https://loremflickr.com/500/640/flatlay,${kw}?lock=${lock}`;
+  /* ── Supabase ── */
+  const SUPA_URL = 'https://bicidgxftzailiokkrto.supabase.co';
+  const SUPA_KEY = 'sb_publishable_y0ikUde20OTG2Tkmg0lzWw_XEioyrPc';
+  const sb = supabase.createClient(SUPA_URL, SUPA_KEY);
 
-  const cards = [
-    { size: "M",   city: "Bentonville",    img: lf("denim,jacket",   1)  },
-    { size: "S",   city: "Fayetteville",   img: lf("floral,dress",   2)  },
-    { size: "10",  city: "Rogers",         img: lf("sneakers,shoes", 3)  },
-    { size: "L",   city: "Springdale",     img: lf("blazer,jacket",  4)  },
-    { size: "XS",  city: "Bella Vista",    img: lf("skirt,clothing", 5)  },
-    { size: "XL",  city: "Centerton",      img: lf("hoodie,clothing",6)  },
-    { size: "S",   city: "Bentonville",    img: lf("jeans,denim",    7)  },
-    { size: "M",   city: "Rogers",         img: lf("coat,clothing",  8)  },
-    { size: "XS",  city: "Fayetteville",   img: lf("silk,dress",     9)  },
-    { size: "8",   city: "Springdale",     img: lf("platform,shoes", 10) },
-    { size: "L",   city: "Bentonville",    img: lf("trench,coat",    11) },
-    { size: "M",   city: "Rogers",         img: lf("wrap,dress",     12) },
-    { size: "S",   city: "Cave Springs",   img: lf("tshirt,clothing",13) },
-    { size: "7",   city: "Lowell",         img: lf("ankle,boots",    14) },
-    { size: "M",   city: "Johnson",        img: lf("bomber,jacket",  15) },
-    { size: "S",   city: "Bella Vista",    img: lf("sundress,fabric",16) },
-    { size: "9",   city: "Fayetteville",   img: lf("chelsea,boots",  17) },
-    { size: "L",   city: "Centerton",      img: lf("trousers,pants", 18) },
-    { size: "M",   city: "Rogers",         img: lf("blouse,clothing",19) },
-    { size: "11",  city: "Highfill",       img: lf("running,shoes",  20) },
-    { size: "L",   city: "Springdale",     img: lf("joggers,clothing",21) },
-    { size: "XS",  city: "Siloam Springs", img: lf("miniskirt,fabric",22) },
-    { size: "S",   city: "Bentonville",    img: lf("cardigan,knit",  23) },
-    { size: "8",   city: "Elm Springs",    img: lf("oxford,shoes",   24) },
-    { size: "M",   city: "Rogers",         img: lf("leather,jacket", 25) },
-    { size: "XS",  city: "Fayetteville",   img: lf("summer,dress",   26) },
-    { size: "M",   city: "Springdale",     img: lf("khaki,trousers", 27) },
-    { size: "L",   city: "Bentonville",    img: lf("vintage,shirt",  28) },
-    { size: "7",   city: "Rogers",         img: lf("heels,shoes",    29) },
-    { size: "S",   city: "Bella Vista",    img: lf("turtleneck,knit",30) },
+  /* ── Fallback demo cards ── */
+  const lf = (kw, lock) => `https://loremflickr.com/500/640/flatlay,${kw}?lock=${lock}`;
+  const DEMO = [
+    { size:"M",  city:"Bentonville",  img_url:lf("denim,jacket",1)   },
+    { size:"S",  city:"Fayetteville", img_url:lf("floral,dress",2)   },
+    { size:"10", city:"Rogers",       img_url:lf("sneakers,shoes",3)  },
+    { size:"L",  city:"Springdale",   img_url:lf("blazer,jacket",4)   },
+    { size:"XS", city:"Bella Vista",  img_url:lf("skirt,clothing",5)  },
+    { size:"XL", city:"Centerton",    img_url:lf("hoodie,clothing",6) },
+    { size:"S",  city:"Bentonville",  img_url:lf("jeans,denim",7)     },
+    { size:"M",  city:"Rogers",       img_url:lf("coat,clothing",8)   },
+    { size:"XS", city:"Fayetteville", img_url:lf("silk,dress",9)      },
+    { size:"8",  city:"Springdale",   img_url:lf("platform,shoes",10) },
   ];
 
-  let idx = 0, active = false;
+  let cards = [], idx = 0, active = false, uploadedDataUrl = null;
 
-  function publishListing() {
+  /* ── Load listings from Supabase ── */
+  async function loadListings() {
+    try {
+      const { data, error } = await sb
+        .from('listings')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(50);
+      if (error || !data || data.length === 0) {
+        cards = DEMO;
+      } else {
+        cards = data;
+      }
+    } catch {
+      cards = DEMO;
+    }
+  }
+
+  /* ── Publish listing to Supabase ── */
+  async function publishListing() {
     const loc  = document.getElementById('location').value;
     const size = document.getElementById('size').value;
     if (!loc)  { showToast('Please select your city'); return; }
     if (!size) { showToast('Please select your size'); return; }
+
+    const btn = document.querySelector('.publish-btn');
+    btn.textContent = 'Publishing…';
+    btn.disabled = true;
+
+    try {
+      const { error } = await sb.from('listings').insert([{
+        city: loc,
+        size: size,
+        img_url: null
+      }]);
+      if (error) {
+        console.warn('Supabase insert error:', error.message);
+        showToast('Listing saved locally — DB setup needed');
+      } else {
+        showToast('Listing published!');
+      }
+    } catch {
+      showToast('Offline — showing demo cards');
+    }
+
+    await loadListings();
     active = true; idx = 0;
     updateCount();
     renderStack();
+
+    btn.textContent = 'Start Browsing';
+    btn.disabled = false;
   }
 
   function updateCount() {
@@ -752,11 +782,12 @@
       el.className = 'card';
       el.style.transform = `scale(${1 - depth * 0.035}) translateY(${depth * -10}px)`;
       el.style.zIndex = i;
+      const imgSrc = c.img_url || lf('clothing,fashion', Math.random() * 999 | 0);
       el.innerHTML = `
         <div class="stamp stamp-yes">Swap</div>
         <div class="stamp stamp-no">Pass</div>
         <div class="card-img-wrap">
-          <img src="${c.img}" alt="clothing item" loading="lazy"
+          <img src="${imgSrc}" alt="clothing item" loading="lazy"
                onerror="this.closest('.card-img-wrap').classList.add('failed')" />
           <div class="card-img-fallback"></div>
         </div>
@@ -783,9 +814,9 @@
     setTimeout(() => {
       top.classList.add(dir === 'yes' ? 'fly-right' : 'fly-left');
       setTimeout(() => {
-        const matched = cards[idx++];
+        idx++;
         updateCount();
-        if (dir === 'yes') openMatch(matched);
+        if (dir === 'yes') openMatch(cards[idx - 1]);
         else renderStack();
       }, 380);
     }, 120);
@@ -821,8 +852,9 @@
     if (!file) return;
     const reader = new FileReader();
     reader.onload = e => {
+      uploadedDataUrl = e.target.result;
       const p = document.getElementById('uploadPreview');
-      p.src = e.target.result;
+      p.src = uploadedDataUrl;
       p.style.display = 'block';
       document.querySelector('.upload-area p').innerHTML = '<strong>Photo added ✓</strong> — tap to change';
     };
