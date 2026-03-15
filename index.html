@@ -3,93 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ClosetSwap</title>
+  <title>Thredl — NWA Closet Swap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg: #0f0f13;
+      --surface: #1a1a24;
+      --card: #22222f;
+      --accent: #a78bfa;
+      --accent2: #818cf8;
+      --yes: #34d399;
+      --no: #f87171;
+      --text: #f1f0ff;
+      --muted: #6b7280;
+      --border: rgba(255,255,255,0.07);
+      --radius: 20px;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f5f0eb;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding-bottom: 40px;
     }
 
+    /* Header */
     header {
       width: 100%;
-      padding: 16px 24px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 18px 24px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(15,15,19,0.85);
     }
 
-    header h1 {
-      font-size: 1.6rem;
-      color: #c0392b;
-      letter-spacing: 1px;
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
     }
 
-    header h1 span { color: #2c3e50; }
+    .logo-sub {
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: -2px;
+      -webkit-text-fill-color: var(--muted);
+    }
 
+    .header-right {
+      width: 36px; height: 36px;
+      background: var(--surface);
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; cursor: pointer;
+    }
+
+    /* Main container */
     .container {
       width: 100%;
-      max-width: 420px;
+      max-width: 400px;
       padding: 20px 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 18px;
     }
 
     /* Upload panel */
-    .upload-panel {
+    .panel {
       width: 100%;
-      background: #fff;
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 18px;
+      border: 1px solid var(--border);
     }
 
-    .upload-panel h2 {
-      font-size: 0.95rem;
-      color: #666;
-      margin-bottom: 12px;
+    .panel-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1.5px;
+      margin-bottom: 14px;
     }
 
     .upload-area {
-      border: 2px dashed #ddd;
-      border-radius: 12px;
-      padding: 24px;
+      border: 1.5px dashed rgba(167,139,250,0.3);
+      border-radius: 14px;
+      padding: 28px 20px;
       text-align: center;
       cursor: pointer;
-      transition: border-color 0.2s;
       position: relative;
+      transition: border-color 0.2s, background 0.2s;
+      background: rgba(167,139,250,0.03);
     }
 
-    .upload-area:hover { border-color: #c0392b; }
+    .upload-area:hover {
+      border-color: var(--accent);
+      background: rgba(167,139,250,0.06);
+    }
 
     .upload-area input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
+      position: absolute; inset: 0; opacity: 0; cursor: pointer;
     }
 
-    .upload-area .icon { font-size: 2rem; margin-bottom: 8px; }
-    .upload-area p { color: #999; font-size: 0.85rem; }
+    .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+
+    .upload-area p {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .upload-area p span {
+      color: var(--accent);
+      font-weight: 600;
+    }
 
     .upload-preview {
       width: 100%;
-      max-height: 160px;
+      max-height: 180px;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 12px;
       display: none;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .fields {
@@ -98,383 +153,678 @@
       margin-top: 12px;
     }
 
-    .fields input, .fields select {
+    .fields select, .fields input {
       flex: 1;
-      padding: 10px 12px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font-size: 0.9rem;
+      padding: 11px 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
       outline: none;
       transition: border-color 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
     }
 
-    .fields input:focus, .fields select:focus { border-color: #c0392b; }
+    .select-wrap {
+      position: relative; flex: 1;
+    }
+
+    .select-wrap::after {
+      content: '▾';
+      position: absolute;
+      right: 12px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+      font-size: 0.8rem;
+    }
+
+    .fields select:focus, .fields input:focus {
+      border-color: var(--accent);
+    }
+
+    .fields select option { background: #1a1a24; }
 
     .publish-btn {
       width: 100%;
-      margin-top: 12px;
-      padding: 12px;
-      background: #c0392b;
+      margin-top: 14px;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: #fff;
       border: none;
-      border-radius: 10px;
-      font-size: 1rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
       cursor: pointer;
-      transition: background 0.2s;
+      letter-spacing: 0.3px;
+      transition: opacity 0.2s, transform 0.1s;
     }
 
-    .publish-btn:hover { background: #a93226; }
+    .publish-btn:hover { opacity: 0.92; }
+    .publish-btn:active { transform: scale(0.98); }
 
     /* Card stack */
+    .stack-label {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stack-label span {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .stack-count {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
     .card-stack {
       width: 100%;
       position: relative;
-      height: 420px;
+      height: 440px;
     }
 
     .card {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: #fff;
-      border-radius: 20px;
+      background: var(--card);
+      border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      user-select: none;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      transition: transform 0.45s cubic-bezier(.22,.68,0,1.2), opacity 0.35s ease;
+      cursor: grab;
     }
 
     .card img {
       width: 100%;
-      height: 260px;
+      height: 280px;
       object-fit: cover;
+      display: block;
     }
 
-    .card-info {
-      padding: 14px 16px;
-    }
-
-    .card-info h3 { font-size: 1.1rem; color: #2c3e50; }
-    .card-info .meta {
-      display: flex;
-      gap: 10px;
-      margin-top: 6px;
-    }
-
-    .badge {
-      background: #f5f0eb;
-      color: #666;
-      font-size: 0.78rem;
-      padding: 4px 10px;
-      border-radius: 20px;
-    }
-
-    .card.fly-left {
-      transform: translateX(-150%) rotate(-20deg);
-      opacity: 0;
-    }
-
-    .card.fly-right {
-      transform: translateX(150%) rotate(20deg);
-      opacity: 0;
-    }
-
-    .card-stamp {
+    .card-gradient {
       position: absolute;
-      top: 20px;
-      font-size: 2.5rem;
-      font-weight: 900;
-      border: 4px solid;
-      border-radius: 8px;
-      padding: 4px 14px;
-      opacity: 0;
-      transition: opacity 0.15s;
+      top: 160px;
+      left: 0; right: 0;
+      height: 130px;
+      background: linear-gradient(to bottom, transparent, var(--card));
       pointer-events: none;
     }
 
-    .stamp-yes { left: 20px; color: #27ae60; border-color: #27ae60; transform: rotate(-15deg); }
-    .stamp-no  { right: 20px; color: #c0392b; border-color: #c0392b; transform: rotate(15deg); }
+    .card-info {
+      padding: 16px 18px;
+    }
 
-    /* Action buttons */
+    .card-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 4px 11px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Stamps */
+    .stamp {
+      position: absolute;
+      top: 24px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      border: 3px solid;
+      border-radius: 8px;
+      padding: 5px 14px;
+      opacity: 0;
+      transition: opacity 0.15s;
+      pointer-events: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .stamp-yes { left: 18px; color: var(--yes); border-color: var(--yes); transform: rotate(-12deg); }
+    .stamp-no  { right: 18px; color: var(--no);  border-color: var(--no);  transform: rotate(12deg); }
+
+    .card.fly-left  { transform: translateX(-130%) rotate(-18deg) !important; opacity: 0; }
+    .card.fly-right { transform: translateX(130%)  rotate(18deg)  !important; opacity: 0; }
+
+    /* Actions */
     .actions {
       display: flex;
-      gap: 30px;
-      justify-content: center;
+      gap: 24px;
+      align-items: center;
     }
 
     .btn-action {
-      width: 64px;
-      height: 64px;
+      width: 68px; height: 68px;
       border-radius: 50%;
       border: none;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      display: flex; align-items: center; justify-content: center;
       transition: transform 0.15s, box-shadow 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: relative;
     }
 
-    .btn-action:hover { transform: scale(1.1); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+    .btn-action::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
 
-    .btn-no  { background: #fff; color: #c0392b; }
-    .btn-yes { background: #fff; color: #27ae60; }
+    .btn-no  {
+      background: rgba(248,113,113,0.12);
+      border: 1.5px solid rgba(248,113,113,0.3);
+      color: var(--no);
+      box-shadow: 0 0 0 0 rgba(248,113,113,0);
+    }
+
+    .btn-yes {
+      background: rgba(52,211,153,0.12);
+      border: 1.5px solid rgba(52,211,153,0.3);
+      color: var(--yes);
+      width: 76px; height: 76px;
+      font-size: 1.8rem;
+    }
+
+    .btn-no:hover  { transform: scale(1.1); box-shadow: 0 0 24px rgba(248,113,113,0.25); }
+    .btn-yes:hover { transform: scale(1.1); box-shadow: 0 0 24px rgba(52,211,153,0.25); }
+    .btn-action:active { transform: scale(0.94); }
+
+    /* Empty state */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--muted);
+      text-align: center;
+      padding: 30px;
+    }
+
+    .empty-state .e-icon { font-size: 3rem; margin-bottom: 12px; }
+    .empty-state p { font-size: 0.9rem; line-height: 1.6; }
+    .empty-state strong { color: var(--accent); }
 
     /* Match modal */
-    .modal-overlay {
+    .overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.55);
-      z-index: 100;
-      align-items: center;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      align-items: flex-end;
       justify-content: center;
     }
 
-    .modal-overlay.active { display: flex; }
+    .overlay.active { display: flex; }
 
     .modal {
-      background: #fff;
-      border-radius: 20px;
-      padding: 28px 24px;
-      width: 90%;
-      max-width: 360px;
-      text-align: center;
-      animation: popIn 0.3s ease;
-    }
-
-    @keyframes popIn {
-      from { transform: scale(0.8); opacity: 0; }
-      to   { transform: scale(1);   opacity: 1; }
-    }
-
-    .modal .match-icon { font-size: 3rem; }
-    .modal h2 { margin: 10px 0 4px; color: #2c3e50; }
-    .modal p  { color: #888; font-size: 0.9rem; margin-bottom: 16px; }
-
-    .modal textarea {
+      background: var(--surface);
+      border-radius: 28px 28px 0 0;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      padding: 28px 24px 36px;
       width: 100%;
-      height: 90px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 10px;
+      max-width: 480px;
+      animation: slideUp 0.35s cubic-bezier(.22,.68,0,1.1);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    .modal-handle {
+      width: 40px; height: 4px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 4px;
+      margin: 0 auto 20px;
+    }
+
+    .match-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
+
+    .match-avatars {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--surface);
+    }
+
+    .avatar:last-child { margin-left: -16px; }
+
+    .match-text h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .match-text p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .match-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, rgba(167,139,250,0.15), rgba(129,140,248,0.15));
+      border: 1px solid rgba(167,139,250,0.25);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .msg-area {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 4px 4px 4px 14px;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .msg-area textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text);
       font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
       resize: none;
       outline: none;
+      padding: 10px 0;
+      min-height: 44px;
+      max-height: 100px;
     }
 
-    .modal textarea:focus { border-color: #c0392b; }
+    .msg-area textarea::placeholder { color: var(--muted); }
 
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .modal-actions button {
-      flex: 1;
-      padding: 11px;
+    .send-btn {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
       border: none;
-      border-radius: 10px;
-      font-size: 0.95rem;
+      color: #fff;
+      font-size: 1rem;
       cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-bottom: 2px;
+      transition: opacity 0.2s;
     }
 
-    .btn-send  { background: #c0392b; color: #fff; }
-    .btn-close { background: #f0f0f0; color: #555; }
+    .send-btn:hover { opacity: 0.88; }
 
-    .empty-state {
-      text-align: center;
-      color: #aaa;
-      padding: 60px 20px;
+    .modal-dismiss {
+      width: 100%;
+      margin-top: 12px;
+      padding: 11px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
     }
 
-    .empty-state .icon { font-size: 3rem; }
-    .empty-state p { margin-top: 10px; font-size: 0.95rem; }
+    .modal-dismiss:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 22px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 300;
+      transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), opacity 0.3s;
+      opacity: 0;
+      white-space: nowrap;
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Closet<span>Swap</span></h1>
+  <div>
+    <div class="logo">Thredl</div>
+    <div class="logo-sub">NWA Closet Swap</div>
+  </div>
+  <div class="header-right">👤</div>
 </header>
 
 <div class="container">
 
-  <!-- Upload your item -->
-  <div class="upload-panel">
-    <h2>Your Listing</h2>
+  <!-- Your listing -->
+  <div class="panel">
+    <div class="panel-label">Your Listing</div>
+
     <div class="upload-area" id="uploadArea">
       <input type="file" accept="image/*" id="fileInput" />
-      <div class="icon">📷</div>
-      <p>Tap to upload a photo of your item</p>
+      <div class="upload-icon">📸</div>
+      <p><span>Tap to upload</span> a photo of your item</p>
     </div>
     <img id="uploadPreview" class="upload-preview" alt="preview" />
+
     <div class="fields">
-      <input type="text" id="location" placeholder="📍 City" />
-      <select id="size">
-        <option value="">Size</option>
-        <option>XS</option><option>S</option><option>M</option>
-        <option>L</option><option>XL</option><option>XXL</option>
-        <option>6</option><option>7</option><option>8</option>
-        <option>9</option><option>10</option><option>11</option><option>12</option>
-      </select>
+      <div class="select-wrap">
+        <select id="location">
+          <option value="">📍 City</option>
+          <option>Bentonville</option>
+          <option>Rogers</option>
+          <option>Fayetteville</option>
+          <option>Springdale</option>
+          <option>Bella Vista</option>
+          <option>Centerton</option>
+          <option>Siloam Springs</option>
+          <option>Cave Springs</option>
+          <option>Lowell</option>
+          <option>Johnson</option>
+          <option>Elm Springs</option>
+          <option>Highfill</option>
+        </select>
+      </div>
+      <div class="select-wrap">
+        <select id="size">
+          <option value="">Size</option>
+          <optgroup label="Clothing">
+            <option>XS</option><option>S</option><option>M</option>
+            <option>L</option><option>XL</option><option>XXL</option>
+          </optgroup>
+          <optgroup label="Shoes">
+            <option>6</option><option>7</option><option>8</option>
+            <option>9</option><option>10</option><option>11</option><option>12</option>
+          </optgroup>
+        </select>
+      </div>
     </div>
-    <button class="publish-btn" onclick="publishListing()">List My Item ✓</button>
+
+    <button class="publish-btn" onclick="publishListing()">Start Swapping →</button>
   </div>
 
-  <!-- Swipe cards -->
+  <!-- Stack header -->
+  <div class="stack-label">
+    <span>Browse Swaps</span>
+    <div class="stack-count" id="countBadge">— items</div>
+  </div>
+
+  <!-- Card stack -->
   <div class="card-stack" id="cardStack">
     <div class="empty-state">
-      <div class="icon">👕</div>
-      <p>List your item to start browsing swaps!</p>
+      <div class="e-icon">👗</div>
+      <p>Fill out your listing above<br/>to start browsing local swaps in <strong>NWA</strong></p>
     </div>
   </div>
 
-  <!-- Action buttons -->
+  <!-- Swipe buttons -->
   <div class="actions">
-    <button class="btn-action btn-no"  onclick="swipe('no')" title="Pass">✕</button>
-    <button class="btn-action btn-yes" onclick="swipe('yes')" title="Like">✓</button>
+    <button class="btn-action btn-no"  onclick="swipe('no')"  title="Pass">✕</button>
+    <button class="btn-action btn-yes" onclick="swipe('yes')" title="Swap">✓</button>
   </div>
 
 </div>
 
-<!-- Match modal -->
-<div class="modal-overlay" id="matchModal">
+<!-- Match / message modal -->
+<div class="overlay" id="matchOverlay">
   <div class="modal">
-    <div class="match-icon">🎉</div>
-    <h2>It's a Match!</h2>
-    <p>You both want to swap. Send them a message to get started!</p>
-    <textarea id="msgBox" placeholder="Hey! I love your item, want to swap?"></textarea>
-    <div class="modal-actions">
-      <button class="btn-close" onclick="closeModal()">Maybe Later</button>
-      <button class="btn-send"  onclick="sendMessage()">Send Message</button>
+    <div class="modal-handle"></div>
+    <div class="match-header">
+      <div class="match-avatars">
+        <img class="avatar" id="matchAvatar" src="" alt="match" />
+        <img class="avatar" src="https://api.dicebear.com/7.x/thumbs/svg?seed=you&backgroundColor=a78bfa" alt="you" />
+      </div>
+      <div class="match-text">
+        <h2>It's a Match! 🎉</h2>
+        <p id="matchName">They want your swap too</p>
+      </div>
     </div>
+    <div class="match-badge">✦ Mutual swap interest in NWA</div>
+
+    <div class="msg-area">
+      <textarea id="msgBox" placeholder="Hey! I love your piece — want to meet up in Bentonville to swap?" rows="2"></textarea>
+      <button class="send-btn" onclick="sendMessage()">➤</button>
+    </div>
+    <button class="modal-dismiss" onclick="closeModal()">Maybe later</button>
   </div>
 </div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-  // Sample cards to browse
-  const sampleCards = [
-    { name: "Vintage Denim Jacket",  size: "M",  location: "Austin, TX",    img: "https://images.unsplash.com/photo-1601933513793-537c8c0a1e7e?w=400&q=80" },
-    { name: "Floral Summer Dress",   size: "S",  location: "Miami, FL",     img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&q=80" },
-    { name: "Classic White Sneakers",size: "10", location: "Chicago, IL",   img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" },
-    { name: "Wool Blazer",           size: "L",  location: "New York, NY",  img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80" },
-    { name: "Boho Maxi Skirt",       size: "XS", location: "Portland, OR",  img: "https://images.unsplash.com/photo-1583496661160-fb5218e5a677?w=400&q=80" },
+  const NWA_CITIES = [
+    'Bentonville','Rogers','Fayetteville','Springdale',
+    'Bella Vista','Centerton','Siloam Springs','Cave Springs',
+    'Lowell','Johnson','Elm Springs','Highfill'
   ];
 
-  let cardIndex = 0;
-  let published = false;
+  const cards = [
+    {
+      name: "Vintage Levi's Denim Jacket",
+      size: "M",
+      city: "Bentonville",
+      img: "https://images.unsplash.com/photo-1601933513793-537c8c0a1e7e?w=500&q=80",
+      user: "Jordan K.",
+      avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=jordan&backgroundColor=818cf8"
+    },
+    {
+      name: "Floral Midi Dress",
+      size: "S",
+      city: "Fayetteville",
+      img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&q=80",
+      user: "Mia T.",
+      avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=mia&backgroundColor=f9a8d4"
+    },
+    {
+      name: "Air Force 1 Sneakers",
+      size: "10",
+      city: "Rogers",
+      img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80",
+      user: "Sam R.",
+      avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=sam&backgroundColor=6ee7b7"
+    },
+    {
+      name: "Linen Blazer",
+      size: "L",
+      city: "Springdale",
+      img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&q=80",
+      user: "Alex W.",
+      avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=alex&backgroundColor=fcd34d"
+    },
+    {
+      name: "Boho Maxi Skirt",
+      size: "XS",
+      city: "Bella Vista",
+      img: "https://images.unsplash.com/photo-1583496661160-fb5218e5a677?w=500&q=80",
+      user: "Priya L.",
+      avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=priya&backgroundColor=c4b5fd"
+    },
+  ];
+
+  let idx = 0;
+  let active = false;
 
   function publishListing() {
-    const loc  = document.getElementById('location').value.trim();
+    const loc  = document.getElementById('location').value;
     const size = document.getElementById('size').value;
-    const preview = document.getElementById('uploadPreview').src;
-
-    if (!loc || !size) {
-      alert('Please enter your city and size before listing.');
-      return;
-    }
-
-    published = true;
-    cardIndex  = 0;
-    renderCards();
+    if (!loc)  { showToast('Please select your city'); return; }
+    if (!size) { showToast('Please select your size'); return; }
+    active = true;
+    idx = 0;
+    updateCount();
+    renderStack();
   }
 
-  function renderCards() {
+  function updateCount() {
+    const rem = Math.max(0, cards.length - idx);
+    document.getElementById('countBadge').textContent = rem + ' item' + (rem !== 1 ? 's' : '');
+  }
+
+  function renderStack() {
     const stack = document.getElementById('cardStack');
     stack.innerHTML = '';
 
-    if (cardIndex >= sampleCards.length) {
-      stack.innerHTML = '<div class="empty-state"><div class="icon">🌟</div><p>You\'ve seen all available swaps. Check back soon!</p></div>';
+    if (idx >= cards.length) {
+      stack.innerHTML = `<div class="empty-state">
+        <div class="e-icon">🌟</div>
+        <p>You've seen all NWA swaps!<br/>Check back soon for new listings.</p>
+      </div>`;
       return;
     }
 
-    // Render up to 3 stacked cards (back to front)
-    const visible = sampleCards.slice(cardIndex, cardIndex + 3).reverse();
+    const visible = cards.slice(idx, idx + 3).reverse();
     visible.forEach((c, i) => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.style.transform = `scale(${1 - (visible.length - 1 - i) * 0.04}) translateY(${(visible.length - 1 - i) * -10}px)`;
-      card.style.zIndex = i;
-      card.innerHTML = `
-        <div class="card-stamp stamp-yes">SWAP</div>
-        <div class="card-stamp stamp-no">PASS</div>
+      const isTop = i === visible.length - 1;
+      const depth = visible.length - 1 - i;
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.style.transform = `scale(${1 - depth * 0.04}) translateY(${depth * -12}px)`;
+      el.style.zIndex = i;
+      el.innerHTML = `
+        <div class="stamp stamp-yes">SWAP ✓</div>
+        <div class="stamp stamp-no">PASS ✕</div>
         <img src="${c.img}" alt="${c.name}" />
+        <div class="card-gradient"></div>
         <div class="card-info">
-          <h3>${c.name}</h3>
-          <div class="meta">
-            <span class="badge">📍 ${c.location}</span>
-            <span class="badge">Size ${c.size}</span>
+          <div class="card-name">${c.name}</div>
+          <div class="card-meta">
+            <span class="pill">📍 ${c.city}</span>
+            <span class="pill">Size ${c.size}</span>
+            <span class="pill">👤 ${c.user}</span>
           </div>
         </div>`;
-      stack.appendChild(card);
+      stack.appendChild(el);
     });
   }
 
-  function swipe(direction) {
-    if (!published) { alert('List your item first!'); return; }
-    if (cardIndex >= sampleCards.length) return;
+  function swipe(dir) {
+    if (!active) { showToast('List your item first!'); return; }
+    if (idx >= cards.length) return;
 
     const stack = document.getElementById('cardStack');
-    const topCard = stack.querySelector('.card:last-child');
-    if (!topCard) return;
+    const top = stack.querySelector('.card:last-child');
+    if (!top) return;
 
-    // Show stamp
-    const stamp = topCard.querySelector(direction === 'yes' ? '.stamp-yes' : '.stamp-no');
+    const stamp = top.querySelector(dir === 'yes' ? '.stamp-yes' : '.stamp-no');
     stamp.style.opacity = '1';
 
     setTimeout(() => {
-      topCard.classList.add(direction === 'yes' ? 'fly-right' : 'fly-left');
-
+      top.classList.add(dir === 'yes' ? 'fly-right' : 'fly-left');
       setTimeout(() => {
-        cardIndex++;
-
-        if (direction === 'yes') {
-          // ~50% chance of mutual match for demo
-          const matched = Math.random() > 0.5;
-          if (matched) {
-            showMatch();
-            return;
-          }
+        const matched = cards[idx];
+        idx++;
+        updateCount();
+        if (dir === 'yes') {
+          openMatch(matched);
+        } else {
+          renderStack();
         }
-
-        renderCards();
-      }, 350);
-    }, 150);
+      }, 380);
+    }, 120);
   }
 
-  function showMatch() {
-    document.getElementById('matchModal').classList.add('active');
+  function openMatch(card) {
+    document.getElementById('matchAvatar').src = card.avatar;
+    document.getElementById('matchName').textContent = card.user + ' wants to swap too!';
+    document.getElementById('matchOverlay').classList.add('active');
   }
 
   function closeModal() {
-    document.getElementById('matchModal').classList.remove('active');
-    renderCards();
+    document.getElementById('matchOverlay').classList.remove('active');
+    renderStack();
   }
 
   function sendMessage() {
     const msg = document.getElementById('msgBox').value.trim();
-    if (!msg) { alert('Write a message first!'); return; }
-    alert('Message sent! Happy swapping 👗');
-    document.getElementById('msgBox').value = '';
+    if (!msg) { showToast('Write a message first!'); return; }
     closeModal();
+    showToast('Message sent to ' + document.getElementById('matchName').textContent.split(' wants')[0] + ' 🎉');
+    document.getElementById('msgBox').value = '';
   }
 
-  // Image upload preview
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // Upload preview
   document.getElementById('fileInput').addEventListener('change', function () {
     const file = this.files[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = e => {
-      const preview = document.getElementById('uploadPreview');
-      preview.src = e.target.result;
-      preview.style.display = 'block';
+      const p = document.getElementById('uploadPreview');
+      p.src = e.target.result;
+      p.style.display = 'block';
+      document.querySelector('.upload-area p').innerHTML = '<span>Photo added ✓</span> Tap to change';
     };
     reader.readAsDataURL(file);
   });
 </script>
-
 </body>
 </html>
