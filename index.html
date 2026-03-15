@@ -980,19 +980,18 @@
   const SUPA_KEY = 'sb_publishable_y0ikUde20OTG2Tkmg0lzWw_XEioyrPc';
   const sb = supabase.createClient(SUPA_URL, SUPA_KEY);
 
-  /* ── Fallback demo cards ── */
-  const lf = (kw, lock) => `https://loremflickr.com/500/640/flatlay,${kw}?lock=${lock}`;
+  /* ── Fallback demo cards — flat-lay product shots, no models ── */
   const DEMO = [
-    { size:"M",  city:"Bentonville",  img_url:lf("denim,jacket",1)   },
-    { size:"S",  city:"Fayetteville", img_url:lf("floral,dress",2)   },
-    { size:"10", city:"Rogers",       img_url:lf("sneakers,shoes",3)  },
-    { size:"L",  city:"Springdale",   img_url:lf("blazer,jacket",4)   },
-    { size:"XS", city:"Bella Vista",  img_url:lf("skirt,clothing",5)  },
-    { size:"XL", city:"Centerton",    img_url:lf("hoodie,clothing",6) },
-    { size:"S",  city:"Bentonville",  img_url:lf("jeans,denim",7)     },
-    { size:"M",  city:"Rogers",       img_url:lf("coat,clothing",8)   },
-    { size:"XS", city:"Fayetteville", img_url:lf("silk,dress",9)      },
-    { size:"8",  city:"Springdale",   img_url:lf("platform,shoes",10) },
+    { title:"Casual Travel Flatlay",      size:"M",  city:"Bentonville",  img_url:"https://source.unsplash.com/CL7vUhACCZ8/500x640" },
+    { title:"Summer Clothing Set",        size:"S",  city:"Fayetteville", img_url:"https://source.unsplash.com/6KChjhskfg8/500x640" },
+    { title:"Nike Air Max",               size:"10", city:"Rogers",       img_url:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80" },
+    { title:"Men's Outfit Flatlay",       size:"L",  city:"Springdale",   img_url:"https://source.unsplash.com/QbNpxO0G27c/500x640" },
+    { title:"Shirt, Jeans & Sneakers",    size:"XS", city:"Bella Vista",  img_url:"https://source.unsplash.com/Bdd3Jc0BHbY/500x640" },
+    { title:"Clothes & Accessories",      size:"XL", city:"Centerton",    img_url:"https://source.unsplash.com/BqdzGWv-uho/500x640" },
+    { title:"Sweater, Jeans & Sneakers",  size:"S",  city:"Bentonville",  img_url:"https://source.unsplash.com/oZEuOtv8KA0/500x640" },
+    { title:"Men's Style Bundle",         size:"M",  city:"Rogers",       img_url:"https://source.unsplash.com/DMUFAvIh6aE/500x640" },
+    { title:"Travel Essentials",          size:"XS", city:"Fayetteville", img_url:"https://source.unsplash.com/clK5ZFcovc8/500x640" },
+    { title:"Nike Free Run",              size:"8",  city:"Springdale",   img_url:"https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=500&q=80" },
   ];
 
   let cards = [], idx = 0, active = false, uploadedDataUrl = null;
@@ -1074,17 +1073,18 @@
       el.className = 'card';
       el.style.transform = `scale(${1 - depth * 0.035}) translateY(${depth * -10}px)`;
       el.style.zIndex = i;
-      const imgSrc = c.img_url || lf('clothing,fashion', Math.random() * 999 | 0);
+      const imgSrc = c.img_url || '';
       el.innerHTML = `
         <div class="stamp stamp-yes">Swap</div>
         <div class="stamp stamp-no">Pass</div>
         <div class="card-img-wrap">
-          <img src="${imgSrc}" alt="clothing item" loading="lazy"
+          <img src="${imgSrc}" alt="${c.title || 'clothing item'}" loading="lazy"
                onerror="this.closest('.card-img-wrap').classList.add('failed')" />
           <div class="card-img-fallback"></div>
         </div>
         <div class="card-gradient"></div>
         <div class="card-info">
+          ${c.title ? `<div class="card-name">${c.title}</div>` : ''}
           <div class="card-meta">
             <span class="pill">📍 ${c.city}</span>
             <span class="pill">Size ${c.size}</span>
